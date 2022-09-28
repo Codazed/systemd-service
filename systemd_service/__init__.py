@@ -71,6 +71,7 @@ class Service:
                 restart_sec = 'RestartSec=5s'
         else:
             restart = ''
+            restart_sec = ''
 
         systemd_script = f'''[Unit]
 Description="{self.name}"
