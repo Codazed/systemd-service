@@ -96,14 +96,14 @@ WantedBy=multi-user.target'''
             timer_type = f'OnBootSec = 15s'
 
         systemd_script = f'''[Unit]
-Description = "{self.name}"
+Description="{self.name}"
 
 [Timer]
 {timer_type}
-Unit = {self.name}.service
+Unit={self.name}.service
 
 [Install]
-WantedBy = timers.target
+WantedBy=timers.target
         '''
 
         self.create_service(*args, **kwargs)
