@@ -55,13 +55,22 @@ class Service:
             os.remove(file)
 
     # ----------------------------------------------------------------------
-    def create_service(self, after=None):
+    def create_service(self, after=None, restart=None, restart_sec=None):
         """"""
 
         if after:
             after = f'After={after}'
         else:
             after = ''
+
+        if restart:
+            restart = f'Restart={restart}'
+            if restart_sec:
+                restart_sec = f'RestartSec={restart_sec}s'
+            else:
+                restart_sec = 'RestartSec=5s'
+        else:
+            restart = ''
 
         systemd_script = f'''[Unit]
 Description="{self.name}"
@@ -72,8 +81,8 @@ StartLimitBurst=50
 [Service]
 Type=simple
 ExecStart={self.path}
-Restart=always
-RestartSec=5s
+{restart}
+{restart_sec}
 
 [Install]
 WantedBy=multi-user.target'''
